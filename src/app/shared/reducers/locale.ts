@@ -27,11 +27,13 @@ export default (state: LocaleState = initialState, action): LocaleState => {
 };
 
 export const setLocale = locale => async dispatch => {
+  console.log('setLocale', locale)
   if (!Object.keys(TranslatorContext.context.translations).includes(locale)) {
-    const response = await axios.get(`i18n/${locale}.json?buildTimestamp=${process.env.BUILD_TIMESTAMP}`, { baseURL: '' });
+    const response = await axios.get(`/i18n/${locale}.json?buildTimestamp=${process.env.BUILD_TIMESTAMP}`, { baseURL: '' });
+    console.log('response.data', response.data)
     TranslatorContext.registerTranslations(locale, response.data);
   }
-  dispatch({
+  await dispatch({
     type: ACTION_TYPES.SET_LOCALE,
     locale
   });

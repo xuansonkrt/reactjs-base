@@ -1,0 +1,4 @@
+export const ACTION_TYPES = {
+  SCHEDULE_SEARCH: 'test/SCHEDULE_SEARCH',
+  UPDATE_MSG: 'test/UPDATE_MSG'
+}

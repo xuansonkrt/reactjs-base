@@ -8,6 +8,7 @@ import loggerMiddleware from './logger-middleware';
 import { loadingBarMiddleware, showLoading, hideLoading } from 'react-redux-loading-bar';
 import actionMiddleware from './action-middleware';
 import reducer, { IRootState } from '../shared/reducers';
+import thunk from 'redux-thunk';
 
 const defaultMiddlewares = [
   thunkMiddleware,
@@ -16,15 +17,30 @@ const defaultMiddlewares = [
   promiseMiddleware,
   actionMiddleware(),
   // loadingBarMiddleware(),
-  loggerMiddleware
+  loggerMiddleware,
+  thunk
 ];
 const composedMiddlewares = middlewares =>
   process.env.NODE_ENV === 'development'
     ? compose(
-        applyMiddleware({...defaultMiddlewares, ...middlewares}),
-        DevTools.instrument()
-      )
-    : compose(applyMiddleware({...defaultMiddlewares, ...middlewares}));
+      applyMiddleware(thunkMiddleware,
+        errorMiddleware,
+        notificationMiddleware,
+        promiseMiddleware,
+        actionMiddleware(),
+        // loadingBarMiddleware(),
+        loggerMiddleware,
+        thunk),
+      DevTools.instrument()
+    )
+    : compose(applyMiddleware(thunkMiddleware,
+      errorMiddleware,
+      notificationMiddleware,
+      promiseMiddleware,
+      actionMiddleware(),
+      // loadingBarMiddleware(),
+      loggerMiddleware,
+      thunk));
 
 const initialize = (initialState?: IRootState, middlewares = []) =>
   createStore(reducer, initialState, composedMiddlewares(middlewares));

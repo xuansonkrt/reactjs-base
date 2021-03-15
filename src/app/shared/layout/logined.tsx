@@ -27,10 +27,10 @@ const LoginedComponent = ({ isAuthenticated }) => {
   const renderComponent = () => {
     return (
       <>
-        {isAuthenticated && isShowMenu() && <SidebarMenuLeft componentDisplay="" />}
+        { isShowMenu() && <SidebarMenuLeft componentDisplay="" />}
         <Switch>
           {/* <MenuPrivateRoute path="/" exact component={Home} hasAnyAuthorities={[AUTHORITIES.USER, AUTHORITIES.ADMIN]} /> */}
-          <ErrorBoundaryRoute path="/employee" component={Test} />
+          <ErrorBoundaryRoute path="/test" component={Test} />
      
           <ErrorBoundaryRoute component={PageNotFound} />
           <ErrorBoundaryRoute component={ExceptionPage} />

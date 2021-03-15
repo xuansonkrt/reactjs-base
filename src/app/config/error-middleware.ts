@@ -1,4 +1,5 @@
 import { isPromise } from 'react-jhipster';
+import { toast } from 'react-toastify';
 
 const getErrorMessage = errorData => {
   let message = errorData.message;
@@ -29,6 +30,8 @@ export default () => next => action => {
     }
     return next(action).catch(error => {
       console.error(`${action.type} caught at middleware with reason: ${JSON.stringify(error.message)}.`);
+
+      toast.error("Bạn không có lỗi, lỗi ở chúng tôi 11111!");
       if (error && error.response && error.response.data) {
         const message = getErrorMessage(error.response.data);
         console.error(`Actual cause: ${message}`);
@@ -36,6 +39,8 @@ export default () => next => action => {
 
       return Promise.reject(error);
     });
+  } else {
+    toast.error("Bạn không có lỗi, lỗi ở chúng tôi!");
   }
   return next(action);
 };

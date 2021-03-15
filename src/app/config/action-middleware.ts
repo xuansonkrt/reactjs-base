@@ -7,7 +7,7 @@ import {
 import { preventDoubleClick, preventDoubleClickBottom }from '../modules/modulo-bridge';
 import _ from 'lodash';
 
-export default function actionMiddleware(config = {}) {
+export default function actionMiddleware(config = {}) {  
     return store => next => action => {
         if (_.get(action, "meta.ignoreLoading")) {
             return next(action);
